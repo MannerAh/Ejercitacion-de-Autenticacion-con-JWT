@@ -1,12 +1,20 @@
 const express = require('express');
 const app = express();
+const PORT = process.env.PORT || 3000;
+//Middleware de parseo
+app.use(express.json());
 
+//Rutas
 
+// Login
+app.use('/login', require('./routes/login.js'))
 
-app.use('/login', (req, res) => {
-    // Genero el token
-    // accessToken = jwt.sign({ userId: user._id }, process.env.SECRET, { expiresIn: '1h' });
-    res.json({accessToken});
-})
+// Registro
+app.use('/register', require('./routes/register.js'))
 
-app
+// Get, Post, Delete Tareas
+app.use('/tareas', require('./routes/tareas.js'))
+
+app.listen(3000, () => {
+    console.log(`Servidor iniciado en http://localhost:${PORT}`)
+});

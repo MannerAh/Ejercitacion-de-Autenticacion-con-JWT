@@ -1,6 +1,11 @@
 const router = require('express').Router()
-const {getTareas} = require('../controllers/logicas.js')
+const authenticateToken = require('../middleware/authToken.js')
+const {getTareas, postTareas, deleteTareas} = require('../controllers/logicas.js')
 
-router.post('/api', getTareas)
+router.get('/', authenticateToken, getTareas)
+
+router.post('/', authenticateToken, postTareas)
+
+router.delete('/:id', authenticateToken, deleteTareas)
 
 module.exports = router;

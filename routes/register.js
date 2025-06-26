@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const {registro} = require('../controllers/logicas.js')
 
-router.post('/api', registro)
+router.post('/', registro)
 
 module.exports = router;

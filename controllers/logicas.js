@@ -22,10 +22,16 @@ function saveTareas(tareas) {
 // Registro
 // Registrarse enviando un username y una contraseña, y guardándolos en la lista de usuarios, responder con mensajes de error
 const registro = (req, res) => {
+    console.log(usuarios);
     const {username, password} = req.body;
     if (!username || !password) {
-        res.status(400).json({error: 'Ambos campos son obligatorios para el registro'});
-    } else {
+        return res.status(400).json({error: 'Ambos campos son obligatorios para el registro'});
+    } 
+    const usuarioExistente = usuarios.find(u => u.username === username)
+    if (usuarioExistente) {
+        return res.status(400).json({error: 'El usuario ya existe'})
+    }
+    {
         usuarios.push({username, password});
         saveUsuarios(usuarios); // <-- Esto guarda el cambio en el archivo
         res.status(201).json({message: 'Usuario registrado'});

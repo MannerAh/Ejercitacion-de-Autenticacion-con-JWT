@@ -24,7 +24,7 @@ Content-Type: application/json
 
 ### Iniciar sesión para obtener el token
 # @name login
-@token = {{login.response.body.accessToken}}
+@token = {{login.response.body.accesstoken}}
 POST {{hostname}}/login
 Content-Type: application/json
 

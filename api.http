@@ -53,8 +53,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "title": "Hacer la compra",
-  "description": "Comprar leche, pan y huevos."
+  "tarea": "Hacer la compra"
 }
 
 ### Crear otra tarea
@@ -63,7 +62,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "title": "Preparar la presentación de Node.js"
+  "tarea": "Preparar la presentación de Node.js"
 }
 
 

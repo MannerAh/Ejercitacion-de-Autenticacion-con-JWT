@@ -59,13 +59,15 @@ const getTareas = (req, res) => {
 
 // Post Tareas
 const postTareas = (req, res) => {
-    const {id, userId, tarea} = req.body;
-    if (!id || !userId || !tarea) {
-        res.status(400).json({error: 'Todos los campos son obligatorios'});
+    const {tarea} = req.body;
+    const id = tareas.lenght ? tareas[tareas.length - 1].id + 1 : 1;
+    const userId = req.user.userId; // <-- Esta información viene del token
+    if (!tarea) {
+        res.status(400).json({error: 'Debes proporcionar un valor para el campo tarea'});
     } else {
         tareas.push({id, userId, tarea});
         saveTareas(tareas); // <-- Esto guarda el cambio en el archivo
-        res.status(201).json({message: 'Tarea creada'});
+        res.status(201).json({message: 'Tarea creada', tarea: {id, userId, tarea}});
     }
 }
 

@@ -74,15 +74,19 @@ const postTareas = (req, res) => {
 // Delete Tareas
 const deleteTareas = (req, res) => {
     const {id} = req.params;
+    const userId = req.user.userId;
     const tarea = tareas.find(t => t.id === Number(id));
     if (!tarea) {
         res.status(404).json({error: 'Tarea no encontrada'});
         return;
+    } else if (tarea.userId !== userId) {
+        res.status(403).json({error: 'No tienes permiso para eliminar esta tarea'});
+        return;
     } else {
-        tareas.splice(tareas.indexOf(tarea), 1)
-    }
+    tareas.splice(tareas.indexOf(tarea), 1)
     saveTareas(tareas);
     res.status(200).json({message: 'Tarea eliminada'});
+    }
 }
 
 module.exports = { registro, login, getTareas, postTareas, deleteTareas }

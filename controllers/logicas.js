@@ -60,7 +60,7 @@ const getTareas = (req, res) => {
 // Post Tareas
 const postTareas = (req, res) => {
     const {tarea} = req.body;
-    const id = tareas.lenght ? tareas[tareas.length - 1].id + 1 : 1;
+    const id = tareas.length ? tareas[tareas.length - 1].id + 1 : 1;
     const userId = req.user.userId; // <-- Esta información viene del token
     if (!tarea) {
         res.status(400).json({error: 'Debes proporcionar un valor para el campo tarea'});
@@ -74,7 +74,7 @@ const postTareas = (req, res) => {
 // Delete Tareas
 const deleteTareas = (req, res) => {
     const {id} = req.params;
-    const tarea = tareas.find(t => t.id === id)
+    const tarea = tareas.find(t => t.id === Number(id));
     if (!tarea) {
         res.status(404).json({error: 'Tarea no encontrada'});
         return;

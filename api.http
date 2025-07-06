@@ -77,7 +77,7 @@ GET {{hostname}}/tareas
 
 ### Eliminar una tarea (cambia el ID según la tarea que quieras eliminar)
 # Primero crea una tarea y luego usa su ID aquí. Por ejemplo, para eliminar la primera tarea (ID 1):
-DELETE {{hostname}}/tareas/1
+DELETE {{hostname}}/tareas/5
 Authorization: Bearer {{token}}
 
 

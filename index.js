@@ -1,24 +1,23 @@
 // Importación de dependencias
 const express = require('express');
-const { use } = require('react');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Creación de la aplicación
+// Parseo de datos JSON
+app.use(express.json());
 
-app-use(express.json());
-
-// Rutas
+// --- Rutas --- 
 
 // POST Register
-app.use
+app.use('/register', require('./routes/registerRoutes'));
 
 // POST Login
+app.use('/login', require('./routes/loginRoutes'));
 
 // GET Tareas?
+app.use('/workouts', require('./routes/workoutRoutes'));
 
-// GET 
-
+// --- Servidor ---
 app.listen(3000, () => {
     console.log(`Server listening on port ${PORT}`);
 })

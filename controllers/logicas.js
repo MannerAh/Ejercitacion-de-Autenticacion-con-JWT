@@ -63,6 +63,8 @@ const createWorkout = (req, res) => {
         const workout = new Workout({ userId, exercise, category, reps})
             await workout.save()
             res.status(201).json({message: 'Workout created', workout})
+            await workout.save()
+            res.status(201).json({message: 'Workout created', workout})
         } catch (error) {
             console.error(error)
             res.status(400).json({message: 'Invalid workout'})

@@ -9,7 +9,7 @@ const app = express()
 // POST /register
 const register = (req, res) => {
     const {username, password} = req.body
-    connectDB().then(async () => {
+    connectDB().then(async () => { // Asegurarse de conectarse a la DB
         const user = await User.findOne({username})
         if (user) {
             res.status(400).json({message: 'Username already exists'})
@@ -23,13 +23,45 @@ const register = (req, res) => {
 }
 
 // POST /login
+const login = (req, res) => {
+    const {username, password} = req.body
+    connectDB().then(async () => {
+        const user = await User.findOne({username})
+        if (!user) {
+           return res.status(400).json({message: 'Invalid username or password'})
+        }
+        const token = jwt.sign({id: user._id, username: user.username },
+        process.env.JWT_SECRET, { expiresIn: '15m' }) 
+        res.status(200).json({token});          
+    })
+    .catch ((error) => {
+        console.error(error)
+        res.status(500).json({message: 'Server error'})
+})
+}
 
+
+// GET /workouts sin token, porque se pide la auth en ../routes
+const getWorkouts = (req, res) => {
+    connectDB().then(async () => {
+        const workouts = await Workout.find()
+        res.json(workouts)
+})
+}
 
 // POST /workouts
-
-
-// GET /workouts
-
+const createWorkout = (req, res) => {
+    const {exercise, category, reps} = req.body
+    const userId = req.user._id
+    connectDB().then(async () => {
+        try { // Try-Catch para evitar errores, mongoose valida los datos necesarios
+        const workout = new Workout({ userId, exercise, category, reps})
+        } catch (error) {
+            console.error(error)
+            res.status(400).json({message: 'Invalid workout'})
+        }
+    })
+}
 
 // DELETE /workouts/:id
 

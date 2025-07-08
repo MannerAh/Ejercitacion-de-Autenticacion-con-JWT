@@ -1,0 +1,45 @@
+
+[
+{
+    "id": 1,
+    "userId": 0,
+    "exercise": "Pull-Ups",
+    "category": "Calisthenics",
+    "reps": true
+},
+{
+    "id":2,
+    "userId":0,
+    "exercise":"Australian pull-ups",
+    "category": "Calisthenics",
+    "reps": true
+},
+{
+    "id":3,
+    "userId":1,
+    "exercise":"Hollow body hold",
+    "category": "Calisthenics",
+    "reps": false
+},
+{
+    "id":4,
+    "userId":0,
+    "exercise":"Abdominal crunch",
+    "category": "Calisthenics",
+    "reps": true
+},
+{
+    "id":5,
+    "userId":0,
+    "exercise":"Bench press",
+    "category": "Weightlifting",
+    "reps": true
+},
+{
+    "id":6,
+    "userId":0,
+    "exercise":"Running",
+    "category": "Cardio",
+    "reps": false
+}
+]

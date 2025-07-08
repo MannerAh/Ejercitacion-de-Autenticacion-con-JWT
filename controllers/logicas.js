@@ -3,8 +3,6 @@ auth = require('../middleware/authToken');
 const { connectDB } = require('../config/database');
 const { Workout } = require('../models/workouts');
 const { User } = require('../models/users');
-const express = require('express')
-const app = express()
 
 // POST /register
 const register = (req, res) => {
@@ -56,6 +54,8 @@ const createWorkout = (req, res) => {
     connectDB().then(async () => {
         try { // Try-Catch para evitar errores, mongoose valida los datos necesarios
         const workout = new Workout({ userId, exercise, category, reps})
+            await workout.save()
+            res.status(201).json({message: 'Workout created', workout})
         } catch (error) {
             console.error(error)
             res.status(400).json({message: 'Invalid workout'})
@@ -64,4 +64,17 @@ const createWorkout = (req, res) => {
 }
 
 // DELETE /workouts/:id
+const deleteWorkout = (req, res) => {
+    const {id} = req.params
+    connectDB().then(async () => {
+        const workout = await Workout.findByIdAndDelete(id)
+        if (!workout) {
+            res.status(404).json({message: 'Workout not found'})
+        }
+        else {
+            res.status(200).json({message: 'Workout deleted successfully'})
+        }
+    })
+}
 
+module.exports = { register, login, getWorkouts, createWorkout, deleteWorkout }

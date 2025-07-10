@@ -32,7 +32,7 @@ const login = (req, res) => {
         process.env.JWT_SECRET, { expiresIn: '15m' }) 
         res.status(200).json({
             message: 'Login successful',
-            token});          
+            token: token});          
     })
     .catch ((error) => {
         console.error(error)
@@ -61,8 +61,6 @@ const createWorkout = (req, res) => {
     connectDB().then(async () => {
         try { // Try-Catch para evitar errores, mongoose valida los datos necesarios
         const workout = new Workout({ userId, exercise, category, reps})
-            await workout.save()
-            res.status(201).json({message: 'Workout created', workout})
             await workout.save()
             res.status(201).json({message: 'Workout created', workout})
         } catch (error) {

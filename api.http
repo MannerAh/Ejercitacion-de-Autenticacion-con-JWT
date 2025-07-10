@@ -24,7 +24,7 @@ Content-Type: application/json
 
 ### Iniciar sesión para obtener el token
 # @name login
-@token = {{login.response.body.accesstoken}}
+@token = {{login.response.body.token}}
 POST {{hostname}}/login
 Content-Type: application/json
 
@@ -44,45 +44,49 @@ Content-Type: application/json
 
 
 # -----------------
-# TAREAS (Tasks)
+# Workouts (Exercises)
 # -----------------
 
-### Crear una nueva tarea
-POST {{hostname}}/tareas
+### /POST create new Workout
+POST {{hostname}}/workouts
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "tarea": "Hacer la compra"
+  "exercise": "Tricep Push-Up",
+  "category": "Calisthenics",
+  "reps": true
 }
 
-### Crear otra tarea
-POST {{hostname}}/tareas
+### /POST Create another Workout
+POST {{hostname}}/workouts
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "tarea": "Preparar la presentación de Node.js"
+  "exercise": "Jumprope",
+  "category": "Cardio",
+  "reps": false
 }
 
 
-### Listar todas las tareas del usuario
-GET {{hostname}}/tareas
+### /GET all workouts
+GET {{hostname}}/workouts
 Authorization: Bearer {{token}}
 
 
-### Intentar listar tareas sin token
-GET {{hostname}}/tareas
+### Try to list workouts without token
+GET {{hostname}}/workouts
 
 
-### Eliminar una tarea (cambia el ID según la tarea que quieras eliminar)
-# Primero crea una tarea y luego usa su ID aquí. Por ejemplo, para eliminar la primera tarea (ID 1):
-DELETE {{hostname}}/tareas/1
+### Eliminar una workout (cambia el ID según la workout que quieras eliminar)
+# Primero crea una workout y luego usa su ID aquí. Por ejemplo, para eliminar la primera workout (ID 1):
+DELETE {{hostname}}/workouts/_id
 Authorization: Bearer {{token}}
 
 
-### Intentar eliminar una tarea de otro usuario (requiere configuración manual)
+### Intentar eliminar una workout de otro usuario (requiere configuración manual)
 # 1. Inicia sesión como 'testuser2' para obtener su token.
-# 2. Intenta eliminar la tarea con ID 1 (que pertenece a 'testuser') usando el token de 'testuser2'.
-# DELETE {{hostname}}/tareas/1
+# 2. Intenta eliminar la workout con ID 1 (que pertenece a 'testuser') usando el token de 'testuser2'.
+# DELETE {{hostname}}/workouts/1
 # Authorization: Bearer <token_de_testuser2> 
